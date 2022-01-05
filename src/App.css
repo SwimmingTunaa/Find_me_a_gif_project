@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: #000a13;
 }
 
 .gifs {
@@ -12,8 +12,6 @@ body {
 
 .gif {
   padding: 0.3rem;
-  border-radius: 15px;
-  border: pink 2px;
 }
 
 .img {
@@ -21,6 +19,38 @@ body {
 }
 
 .loader {
-  color: pink;
+  color: #c90dff;
   padding-top: 45vh;
+}
+
+.logo {
+  width: 25%;
+}
+
+.search {
+  width: 50%;
+}
+
+.color-pink {
+  background-color: #c90dff;
+  color: white;
+}
+
+.tabs {
+  color: white;
+  background: none;
+  border: none;
+}
+.tabs:active {
+  color: #c90dff;
+}
+
+.main {
+}
+
+.gif-container {
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
 }

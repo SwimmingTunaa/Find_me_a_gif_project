@@ -6,7 +6,12 @@ class PageButton extends React.Component
     {
         super(props);
         this.pageNumber = props.pageNumber;
-        this.handlePageChange = props.handlePageChange;
+        this.handlePageChange = this.handePageChange.bind(this);
+    }
+
+    handePageChange(event)
+    {
+        this.props.handlePageChange(event, this.pageNumber);
     }
 
     render()
