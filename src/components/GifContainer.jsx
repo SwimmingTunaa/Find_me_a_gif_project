@@ -15,12 +15,21 @@ const GifContainer = props =>
                 {
                     setIsLoaded(true);
                 }}
-                style={{opacity: isLoaded ? 1 : 0}}
+                style={{
+                    opacity: isLoaded ? 1 : 0,
+                    borderRadius: "10px",   
+                    position: 'absolute'
+                }}
                 src={props.src} alt=""
             />
             <div
-              
-                style={{background: random >= 0.5 ? colorOne : colorTwo, width: props.width, height: props.height, visibility: isLoaded ? 'hidden' : 'visible'}}>
+                className='gif-container d-flex-top'
+                style={{
+                    background: random >= 0.5 ? colorOne : colorTwo,
+                    width: props.width,
+                    height: props.height,
+                    visibility: isLoaded ? 'hidden' : 'visible'
+                }}>
             </div>            
       </React.Fragment>
     )

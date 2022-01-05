@@ -11,7 +11,7 @@ body {
 }
 
 .gif {
-  padding: 0.3rem;
+  margin: 0.3rem;
 }
 
 .img {
@@ -53,4 +53,5 @@ body {
   position: relative;
   top: 0;
   left: 0;
+  border-radius: 10px;
 }

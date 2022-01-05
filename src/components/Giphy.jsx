@@ -1,34 +1,60 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import logo from '../images/Title.png'
-import Loader from "./Loader"
 import PageButton from './PageButton'
 import GifContainer from './GifContainer'
+import Catergory from './Catergory'
 
 const Giphy = () =>
 {
     const [data, setData] = useState([]);
-    const [search, setSearch] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [currentSearch, setCurrentSearch] = useState('');
+    const [searchValue, setSearchValue] = useState ('');
     const [isError, setIsError] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
     const amountToLoad = 500;
     const amountPerPage = 30;
-
     const [pageButtons, setPageButtons] = useState([]);
 
 
     useEffect(() =>
     {
-        loadContent()
-        
-    }, [currentPage])
-    
+        loadContent()       
+    }, [currentPage, currentSearch])
+
+    const loadContent = async () =>
+    {
+        setIsError(false);
+        let offset = (currentPage - 1) * amountPerPage;
+        try {
+            const res = await axios(`https://api.giphy.com/v1/gifs/${currentSearch ==='' ? 'trending' : 'search'}`, {
+                params: {
+                    api_key: 'EmPqtd0g2WTqVbTLLb3BgMUkwq9IJU7b',
+                    limit: amountPerPage,
+                    q: currentSearch !== '' ? currentSearch : '',
+                    offset: offset
+                }
+            })
+            setData(res.data.data)
+            console.log(res.data.data)
+        } catch (error) {
+            setIsError(true);
+            setTimeout(() => setIsError(false), 3000)
+        }
+
+        let pb = [];
+        for (let i = 0; i < amountToLoad / amountPerPage; i++)
+        {
+            pb.push(<PageButton key={i} pageNumber={i + 1} handlePageChange={handlePageChange} />)
+        }
+        setPageButtons(pb);
+        if (currentPage != 1)
+            setSearchValue(currentSearch);
+    }
+
     const renderGifs = () =>
     {        
-        if (isLoading)
-            return <Loader/>
         return data.map(el =>
         {
             return (
@@ -62,7 +88,7 @@ const Giphy = () =>
 
     const handleSearchChange = (event) =>
     {
-        setSearch(event.target.value)
+        setSearchValue(event.target.value);
     }
 
     const handlePageChange =  async (event, pageNumber) =>
@@ -71,40 +97,23 @@ const Giphy = () =>
         setCurrentPage(pageNumber);
     }
 
-    const loadContent = async () =>
-    {
-        setIsError(false);
-        let offset = (currentPage - 1) * amountPerPage;
-        try {
-            const res = await axios(`https://api.giphy.com/v1/gifs/${search ==='' ? 'trending' : 'search'}`, {
-                params: {
-                    api_key: 'EmPqtd0g2WTqVbTLLb3BgMUkwq9IJU7b',
-                    limit: amountPerPage,
-                    q: search !== '' ? search : '',
-                    offset: offset
-                }
-            })
-            setData(res.data.data)
-            console.log(res.data.data)
-        } catch (error) {
-            setIsError(true);
-            setTimeout(() => setIsError(false), 3000)
-        }
-
-        setIsLoading(false); 
-
-        let pb = [];
-        for (let i = 0; i < amountToLoad / amountPerPage; i++)
-        {
-            pb.push(<PageButton key={i} pageNumber={i + 1} handlePageChange={handlePageChange} />)
-        }
-        setPageButtons(pb);
-    }
-
-    const handleSubmit = async event =>
+    const handleSubmit = async (event) =>
     {
         event.preventDefault();
-        loadContent()
+        setCurrentSearch(searchValue);
+    }
+
+    const handleTrending = async event =>
+    {
+        event.preventDefault();
+        setCurrentSearch('');   
+        setSearchValue('');
+    }
+
+    const handleCatergory = async (event, catergory) =>
+    {
+        event.preventDefault();
+        setCurrentSearch(catergory)
     }
 
     return (
@@ -115,18 +124,21 @@ const Giphy = () =>
     
                 {/*form*/}
                     <form className="mx-auto form-inline justify-content-center d-flex mt-5 mb-2">
-                    <input value={search} onChange={handleSearchChange} type="text" placeholder='Search' id='searchInput' className='form-control search' />
+                    <input value={searchValue} onChange={handleSearchChange} type="text" placeholder='Search' id='searchInput' className='form-control search' />
                     
                     <button onClick={handleSubmit} type='submit' className='btn color-pink mx-2'>Find</button>
                 </form>        
                   {/*Trending*/}
                 <div className='mx-auto justify-content-center d-flex '>
-                    <button className='tabs' onClick={handleSubmit}>Trending</button>
+                    <button className='tabs' onClick={handleTrending}>Trending</button>
+                    <Catergory catergory='Anime' handleCatergory={handleCatergory}/>
+                    <Catergory catergory='Cartoon' handleCatergory={handleCatergory}/>
+                    <Catergory catergory='Timelapse' handleCatergory={handleCatergory}/>
+                    <Catergory catergory='Gaming' handleCatergory={handleCatergory}/>
+                    <Catergory catergory='Beauty' handleCatergory={handleCatergory}/>
+                    <Catergory catergory='Celebrities' handleCatergory={handleCatergory}/>
                 </div>
             </div>
-
-          
-                
             {/*Page Buttons*/}
             <div className='mx-auto container justify-content-center d-flex'>{ renderPageButtons()}</div>
             {/*Gifs*/}
