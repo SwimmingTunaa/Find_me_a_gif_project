@@ -20,11 +20,8 @@ const Giphy = () =>
 
     useEffect(() =>
     {
-        loadContent()       
-    }, [currentPage, currentSearch])
-
-    const loadContent = async () =>
-    {
+        const loadContent = async () =>
+        {
         setIsError(false);
         let offset = (currentPage - 1) * amountPerPage;
         try {
@@ -49,9 +46,11 @@ const Giphy = () =>
             pb.push(<PageButton key={i} pageNumber={i + 1} handlePageChange={handlePageChange} />)
         }
         setPageButtons(pb);
-        if (currentPage != 1)
+        if (currentPage !== 1)
             setSearchValue(currentSearch);
-    }
+        }     
+        loadContent()
+    }, [currentPage, currentSearch])
 
     const renderGifs = () =>
     {        

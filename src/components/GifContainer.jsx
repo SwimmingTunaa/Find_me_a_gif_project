@@ -3,7 +3,6 @@ import React from 'react'
 const GifContainer = props =>
 {
     const [isLoaded, setIsLoaded] = React.useState(false);
-    const aspectRatio = (props.height / props.width) * 100;
     const random = Math.random();
     const colorOne = '#c90dff'
     const colorTwo = '#ff8f17'
