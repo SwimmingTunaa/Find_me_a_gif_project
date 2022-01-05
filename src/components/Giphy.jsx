@@ -46,8 +46,7 @@ const Giphy = () =>
             pb.push(<PageButton key={i} pageNumber={i + 1} handlePageChange={handlePageChange} />)
         }
         setPageButtons(pb);
-        if (currentPage !== 1)
-            setSearchValue(currentSearch);
+        setSearchValue(currentSearch);
         }     
         loadContent()
     }, [currentPage, currentSearch])
