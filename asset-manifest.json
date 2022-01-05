@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Find_me_a_gif_project/static/css/main.f5eb9666.css",
+    "main.js": "/Find_me_a_gif_project/static/js/main.10e4d6a6.js",
+    "index.html": "/Find_me_a_gif_project/index.html",
+    "main.f5eb9666.css.map": "/Find_me_a_gif_project/static/css/main.f5eb9666.css.map",
+    "main.10e4d6a6.js.map": "/Find_me_a_gif_project/static/js/main.10e4d6a6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f5eb9666.css",
+    "static/js/main.10e4d6a6.js"
+  ]
+}
