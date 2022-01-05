@@ -2,7 +2,7 @@
   "name": "giphy_project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://swimmingtunaa.github.io/Find_me_a_gif_project/",
+  "homepage": "https://swimmingtunaa.github.io/Find_me_a_gif_project",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages2 -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
